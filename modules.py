@@ -4,68 +4,6 @@ from constant import *
 from main import PlaneGame
 
 
-class Resource(object):
-    """
-    static resource object
-    """
-
-    # Limited Resource only have properties below
-    __slots__ = ('_source', '_dest', '_rect')
-
-    def __init__(self, source, dest=(0, 0)):
-        self._source = source
-        self._dest = dest
-        self._rect = self._source.get_rect()
-        self._rect.x = self._dest[0]
-        self._rect.y = self._dest[1]
-        print("Resource.__init__:", self.rect.x, "-", self.rect.y)
-
-    @property
-    def source(self):
-        return self._source
-
-    @property
-    def dest(self):
-        return self._dest
-
-    @property
-    def rect(self):
-        return self._rect
-
-    @source.setter
-    def source(self, source):
-        self._source = source
-
-    @dest.setter
-    def dest(self, dest):
-        self._dest = dest
-
-    @rect.setter
-    def rect(self, rect):
-        self._rect = rect
-
-    def move(self, x, y):
-        print(self.rect.x, "-", self.rect.y)
-        self.rect.x += x
-        self.rect.y += y
-        self.refresh()
-
-    def going_left(self, dist):
-        self.move(-dist, 0)
-
-    def going_right(self, dist):
-        self.move(dist, 0)
-
-    def going_up(self, dist):
-        self.move(0, -dist)
-
-    def going_down(self, dist):
-        self.move(0, dist)
-
-    def refresh(self):
-        window.get_screen().blit(self.source, self.rect)
-
-
 class GameSprite(pygame.sprite.Sprite):
     """Game Sprite"""
 
@@ -87,7 +25,6 @@ class Hero(GameSprite):
 
     def __init__(self, image_path=RESOURCE_HERO_IMAGE, speed=0):
         super().__init__(image_path, speed=speed)
-        print(self.rect.centerx)
         self.rect.centerx = window.screen_rect.centerx
         self.rect.bottom = window.screen_rect.bottom - 20
         self.bullets = pygame.sprite.Group()
@@ -153,8 +90,6 @@ class Background(GameSprite):
 
 
 class Enemy(GameSprite):
-    ENEMY_IMAGE_PATH = [RESOURCE_ENEMY_IMAGE, RESOURCE_ENEMY_IMAGE, RESOURCE_ENEMY_IMAGE_1, RESOURCE_ENEMY_IMAGE,
-                        RESOURCE_ENEMY_IMAGE]
 
     def __init__(self):
         super().__init__(RESOURCE_ENEMY_IMAGE, speed=game_support.random_int(3, 10))

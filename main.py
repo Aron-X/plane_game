@@ -70,6 +70,7 @@ class PlaneGame(object):
 
     @staticmethod
     def game_over():
+        print("Hero down, Game Over !")
         pygame.quit()
         exit()
 
