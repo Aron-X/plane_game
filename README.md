@@ -1,2 +1,2 @@
 # plane_game
-Python game pratice
+Python game practice
